@@ -1,57 +1,68 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "Lance", "LHei4016#", "fantasy_football_manager");
-
-if ($conn->connect_error) 
+if($_SERVER["REQUEST_METHOD"] =="GET")
 {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the index from the request
-$index = isset($_GET['index']) ? (int)$_GET['index'] : 0;
-
-// Fetch the total number of records
-$result = $conn->query("SELECT COUNT(*) as total FROM players");
-$total = $result->fetch_assoc()['total'];
-
-if ($index >= 0 && $index < $total) 
-{
-    // Fetch the specific row at the given index
-    $query = $conn->prepare("SELECT id, name, team, number, status, position FROM players LIMIT 1 OFFSET ?");
-    $query->bind_param("i", $index);
-    $query->execute();
-    $result = $query->get_result();
-    
-    if ($row = $result->fetch_assoc()) 
+    try 
     {
-        // Add total to the response
-        $row['total'] = $total;
-        echo json_encode($row);
-    } 
-    else 
+        require_once 'includes/dbh.inc.php';
+
+        if(isset($_GET['index']))
+        {
+            $index = (int)$_GET['index']+1;
+        }
+        else
+        {
+            $index = 1;  
+        }
+
+        $query = "SELECT COUNT(*) as total_entries FROM players";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $size = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $totalEntries = $size["total_entries"];
+        $player = null;
+
+        while(!$player && $index <= $totalEntries)
+        {
+            $player = getPlayer($pdo, $index);
+            if ($player) 
+            {
+                echo json_encode(['player' => $player, 'total_entries' => $totalEntries]);
+                die();
+            }
+            else
+            {
+                $index++;
+            }
+        }
+        
+        echo json_encode([
+            'error' => 'Player not found',
+            'total_entries' => $totalEntries,
+        ]);
+
+        $pdo = null;
+        $stsm = null;
+
+        die();
+    }    
+    catch (PDOException $e) 
     {
-        echo json_encode(["error" => "No record found at the given index."]);
+        die("Query Failed: " . $e->getMessage());
     }
-} 
-else 
+}
+else
 {
-    echo json_encode(["error" => "Index out of bounds", "total" => $total]);
+    header("Location: ../index.php");
+    die();
 }
 
-// Close the connection
-$conn->close();
-
-/* OLD JSON CODE
-$data = json_decode(file_get_contents("data.json"), true);
-$index = isset($_GET['index']) ? (int)$_GET['index'] : 0;
-
-if ($index >= 0 && $index < count($data)) 
+function getPlayer($pdo, $index)
 {
-    $data[$index]['total'] = count($data); // Add total count
-    echo json_encode($data[$index]);
-} else 
-{
-    echo json_encode(["error" => "Index out of bounds"]);
+    $query = "SELECT * FROM players WHERE id = :player_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':player_id', $index);
+    $stmt->execute();
+    $player = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $player;
 }
-*/
-?>

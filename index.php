@@ -1,3 +1,9 @@
+<?php
+  require_once 'includes/dbh.inc.php';
+  require_once 'includes/config_session.inc.php';
+  require_once 'includes/import_json_data.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

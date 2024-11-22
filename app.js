@@ -4,19 +4,21 @@ let items = [];
 function fetchItem(index) 
 {
   console.log("Fetch Called On Item: " + index);
+
   const request = new XMLHttpRequest();
   request.open("GET", `loadItem.php?index=${index}`, true);
 
   request.onload = function () 
   {
-    if (request.status === 200) 
+    if (request.status === 200)
     {
       const response = JSON.parse(request.responseText);
+      console.log("Response received:", response);
+
       if (!response.error) 
       {
-        console.log("Response received:", response);
-        displayItem(response); // Display the fetched item
-        document.getElementById("item-position").textContent = `${index + 1} / ${response.total}`;
+        displayItem(response.player);
+        document.getElementById("item-position").textContent = `${index + 1} / ${response.total_entries}`;
         currentIndex = index; // Update the current index
       } 
       else 
@@ -30,23 +32,24 @@ function fetchItem(index)
       console.error("Request failed with status:", request.status);
     }
   };
-
-  request.onerror = function () {
-      console.error("Network error occurred while fetching item.");
+  request.onerror = function () 
+  {
+    console.error("Request error");
   };
-
   request.send();
 }
 
 function displayItem(item) 
 {
   console.log("Displaying Item Values...");
-  document.getElementById("name").value = item.name || "";
-  document.getElementById("team").value = item.team || "";
-  document.getElementById("number").value = item.number || "";
-  document.getElementById("healthy").checked = item.status === "healthy";
-  document.getElementById("injured").checked = item.status === "injured";
-  document.getElementById("position").value = item.position || "";
+  
+  // Update to match the keys in the database JSON response
+  document.getElementById("name").value = item.player_name || ""; // Adjusted for `player_name`
+  document.getElementById("team").value = item.player_team || ""; // Adjusted for `player_team`
+  document.getElementById("number").value = item.player_number || ""; // Adjusted for `player_number`
+  document.getElementById("healthy").checked = item.player_status === "healthy"; // Adjusted for `player_status`
+  document.getElementById("injured").checked = item.player_status === "injured";
+  document.getElementById("position").value = item.player_position || ""; // Adjusted for `player_position`
 }
 
 function toggleEdit() 
@@ -74,7 +77,7 @@ function nextItem()
   console.log("Fetching Next Item...");
   fetchItem(currentIndex + 1);
 }
-
+/*
 function saveRecord() 
 {
   console.log("Save Called On Item: " + currentIndex);
@@ -148,24 +151,9 @@ function insertItem()
   request.send(`name=&team=&number=&status=healthy&position=QB`);
   console.log("Insert Complete!");
 }
-
+*/
 // Load the initial item on page load
 document.addEventListener("DOMContentLoaded", () => 
-{
-    // Make an AJAX request to reset the database
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'resetDb.php', true);
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        if (response.status === 'success') {
-          console.log("Database reset successfully");
-        } else {
-          console.error("Error resetting the database");
-        }
-      }
-    };
-    xhr.send();
-  
+{ 
   fetchItem(currentIndex);
 });

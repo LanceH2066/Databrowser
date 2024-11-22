@@ -1,1 +1,144 @@
-[{"name":"Sam Darnold","team":"Vikings","number":14,"status":"healthy","position":"QB"},{"name":"Justin Jefferson","team":"Vikings","number":18,"status":"healthy","position":"WR"},{"name":"DJ Moore","team":"Bears","number":2,"status":"healthy","position":"WR"}]
+{
+    "players": [
+        {
+            "player_name": "Patrick Mahomes",
+            "player_team": "Kansas City Chiefs",
+            "player_number": 15,
+            "player_status": "healthy",
+            "player_position": "QB"
+        },
+        {
+            "player_name": "Derrick Henry",
+            "player_team": "Tennessee Titans",
+            "player_number": 22,
+            "player_status": "healthy",
+            "player_position": "RB"
+        },
+        {
+            "player_name": "Davante Adams",
+            "player_team": "Las Vegas Raiders",
+            "player_number": 17,
+            "player_status": "healthy",
+            "player_position": "WR"
+        },
+        {
+            "player_name": "Travis Kelce",
+            "player_team": "Kansas City Chiefs",
+            "player_number": 87,
+            "player_status": "healthy",
+            "player_position": "TE"
+        },
+        {
+            "player_name": "Justin Tucker",
+            "player_team": "Baltimore Ravens",
+            "player_number": 9,
+            "player_status": "healthy",
+            "player_position": "K"
+        },
+        {
+            "player_name": "Aaron Donald",
+            "player_team": "Los Angeles Rams",
+            "player_number": 99,
+            "player_status": "healthy",
+            "player_position": "DEF"
+        },
+        {
+            "player_name": "Josh Allen",
+            "player_team": "Buffalo Bills",
+            "player_number": 17,
+            "player_status": "healthy",
+            "player_position": "QB"
+        },
+        {
+            "player_name": "Saquon Barkley",
+            "player_team": "New York Giants",
+            "player_number": 26,
+            "player_status": "healthy",
+            "player_position": "RB"
+        },
+        {
+            "player_name": "Tyreek Hill",
+            "player_team": "Miami Dolphins",
+            "player_number": 10,
+            "player_status": "healthy",
+            "player_position": "WR"
+        },
+        {
+            "player_name": "George Kittle",
+            "player_team": "San Francisco 49ers",
+            "player_number": 85,
+            "player_status": "healthy",
+            "player_position": "TE"
+        },
+        {
+            "player_name": "Harrison Butker",
+            "player_team": "Kansas City Chiefs",
+            "player_number": 7,
+            "player_status": "healthy",
+            "player_position": "K"
+        },
+        {
+            "player_name": "Micah Parsons",
+            "player_team": "Dallas Cowboys",
+            "player_number": 11,
+            "player_status": "healthy",
+            "player_position": "DEF"
+        },
+        {
+            "player_name": "Joe Burrow",
+            "player_team": "Cincinnati Bengals",
+            "player_number": 9,
+            "player_status": "healthy",
+            "player_position": "QB"
+        },
+        {
+            "player_name": "Nick Chubb",
+            "player_team": "Cleveland Browns",
+            "player_number": 24,
+            "player_status": "healthy",
+            "player_position": "RB"
+        },
+        {
+            "player_name": "Cooper Kupp",
+            "player_team": "Los Angeles Rams",
+            "player_number": 10,
+            "player_status": "healthy",
+            "player_position": "WR"
+        },
+        {
+            "player_name": "Mark Andrews",
+            "player_team": "Baltimore Ravens",
+            "player_number": 89,
+            "player_status": "healthy",
+            "player_position": "TE"
+        },
+        {
+            "player_name": "Matt Gay",
+            "player_team": "Indianapolis Colts",
+            "player_number": 8,
+            "player_status": "healthy",
+            "player_position": "K"
+        },
+        {
+            "player_name": "T.J. Watt",
+            "player_team": "Pittsburgh Steelers",
+            "player_number": 90,
+            "player_status": "healthy",
+            "player_position": "DEF"
+        },
+        {
+            "player_name": "Jalen Hurts",
+            "player_team": "Philadelphia Eagles",
+            "player_number": 1,
+            "player_status": "healthy",
+            "player_position": "QB"
+        },
+        {
+            "player_name": "Christian McCaffrey",
+            "player_team": "San Francisco 49ers",
+            "player_number": 23,
+            "player_status": "healthy",
+            "player_position": "RB"
+        }
+    ]
+}
