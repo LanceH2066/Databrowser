@@ -1,5 +1,5 @@
 <?php
-if($_SERVER["REQUEST_METHOD"] =="GET")
+if ($_SERVER["REQUEST_METHOD"] == "GET") 
 {
     try 
     {
@@ -10,18 +10,20 @@ if($_SERVER["REQUEST_METHOD"] =="GET")
         $stmt->execute();
         $totalEntries = $stmt->fetch(PDO::FETCH_ASSOC)["total_entries"];
 
+        // Get the row number from the GET request
         if (isset($_GET['index'])) 
         {
-            $offset = (int)$_GET['index'];
+            $rowNumber = (int)$_GET['index'];
         } 
         else 
         {
-            $offset = 0;
+            echo json_encode(['error' => 'No row number provided']);
+            die();
         }
 
-        $query = "SELECT * FROM players ORDER BY id ASC LIMIT 1 OFFSET :offset";
+        $offset = $rowNumber -1;
+        $query = "SELECT * FROM players ORDER BY id ASC LIMIT 1 OFFSET $offset";
         $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $player = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -35,16 +37,16 @@ if($_SERVER["REQUEST_METHOD"] =="GET")
         }
 
         $pdo = null;
-        $stsm = null;
+        $stmt = null;
 
         die();
-    }    
+    } 
     catch (PDOException $e) 
     {
-        die("Query Failed: " . $e->getMessage());
+        echo json_encode(['error' => 'Query failed: ' . $e->getMessage()]);
     }
-}
-else
+} 
+else 
 {
     header("Location: ../index.php");
     die();
