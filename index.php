@@ -46,8 +46,8 @@
     </select>
 
     <div>
-      <button type="button" onclick="previousItem()">Previous</button>
-      <button type="button" onclick="nextItem()">Next</button>
+      <button type="button" onclick="fetchPreviousItem()">Previous</button>
+      <button type="button" onclick="fetchNextItem()">Next</button>
       <button type="button" onclick="toggleEdit()">Edit</button>
       <button type="button" onclick="saveRecord()">Save</button>
       <button type="button" onclick="deleteItem()">Delete</button>

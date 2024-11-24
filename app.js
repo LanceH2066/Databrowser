@@ -1,43 +1,6 @@
 let currentIndex = 0;
 let items = [];
-
-function fetchItem(index) 
-{
-  console.log("Fetch Called On Item: " + index);
-
-  const request = new XMLHttpRequest();
-  request.open("GET", `loadItem.php?index=${index}`, true);
-
-  request.onload = function () 
-  {
-    if (request.status === 200)
-    {
-      const response = JSON.parse(request.responseText);
-      console.log("Response received:", response);
-
-      if (!response.error) 
-      {
-        displayItem(response.player);
-        document.getElementById("item-position").textContent = `${index + 1} / ${response.total_entries}`;
-        currentIndex = index; // Update the current index
-      } 
-      else 
-      {
-        console.error("Error:", response.error);
-        alert(response.error);
-      }
-    } 
-    else 
-    {
-      console.error("Request failed with status:", request.status);
-    }
-  };
-  request.onerror = function () 
-  {
-    console.error("Request error");
-  };
-  request.send();
-}
+let size = 2;
 
 function displayItem(item) 
 {
@@ -63,20 +26,68 @@ function toggleEdit()
   document.getElementById("position").toggleAttribute("disabled");
 }
 
-function previousItem() 
-{
-  console.log("Fetching Previous Item...");
-  if (currentIndex > 0) 
-  {
-    fetchItem(currentIndex - 1);
+function fetchPreviousItem() {
+  if (currentIndex > 0) {
+      console.log("Fetching Previous Item...");
+      currentIndex--; // Decrement to move backward
+
+      const request = new XMLHttpRequest();
+      request.open("GET", `fetchPreviousItem.php?index=${currentIndex}`, true);
+
+      request.onload = function () {
+          if (request.status === 200) {
+              const response = JSON.parse(request.responseText);
+              console.log("Response received:", response);
+
+              if (!response.error) {
+                  displayItem(response.player);
+                  document.getElementById("item-position").textContent = `${currentIndex + 1} / ${response.total_entries}`;
+                  size = response.total_entries;
+              } else {
+                  alert("Player not found at index " + currentIndex);
+              }
+          } else {
+              console.error("Request failed with status:", request.status);
+          }
+      };
+      request.onerror = function () {
+          console.error("Request error");
+      };
+      request.send();
   }
 }
 
-function nextItem() 
-{
-  console.log("Fetching Next Item...");
-  fetchItem(currentIndex + 1);
+function fetchNextItem() {
+  if (currentIndex + 1 < size) {
+      console.log("Fetching Next Item...");
+      currentIndex++; // Increment to move forward
+
+      const request = new XMLHttpRequest();
+      request.open("GET", `fetchNextItem.php?index=${currentIndex}`, true);
+
+      request.onload = function () {
+          if (request.status === 200) {
+              const response = JSON.parse(request.responseText);
+              console.log("Response received:", response);
+
+              if (!response.error) {
+                  displayItem(response.player);
+                  document.getElementById("item-position").textContent = `${currentIndex + 1} / ${response.total_entries}`;
+                  size = response.total_entries;
+              } else {
+                  alert("Player not found at index " + currentIndex);
+              }
+          } else {
+              console.error("Request failed with status:", request.status);
+          }
+      };
+      request.onerror = function () {
+          console.error("Request error");
+      };
+      request.send();
+  }
 }
+
 /*
 function saveRecord() 
 {
@@ -155,5 +166,5 @@ function insertItem()
 // Load the initial item on page load
 document.addEventListener("DOMContentLoaded", () => 
 { 
-  fetchItem(currentIndex);
+  fetchNextItem(-1);
 });
