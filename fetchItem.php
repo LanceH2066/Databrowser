@@ -4,6 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
     try 
     {
         require_once 'includes/dbh.inc.php';
+        require_once 'includes/config_session.inc.php';
 
         $query = "SELECT COUNT(*) as total_entries FROM players";
         $stmt = $pdo->prepare($query);
@@ -20,9 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
             echo json_encode(['error' => 'No row number provided']);
             die();
         }
-
+        $sortMode = isset($_SESSION['sortMode']) ? (int) $_SESSION['sortMode'] : 0;
+        $sortColumn = $sortMode === 0 ? 'id' : 'player_name';
         $offset = $rowNumber -1;
-        $query = "SELECT * FROM players ORDER BY id ASC LIMIT 1 OFFSET $offset";
+        $query = "SELECT * FROM players ORDER BY $sortColumn ASC LIMIT 1 OFFSET $offset";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $player = $stmt->fetch(PDO::FETCH_ASSOC);

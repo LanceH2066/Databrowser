@@ -15,9 +15,9 @@
 </head>
 
 <body>
-  <h1>Fantasy Football Manager</h1>
-
   <form id="item-form">
+     <h1>Fantasy Football Manager</h1>
+
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" readonly>
 
@@ -26,14 +26,6 @@
 
     <label for="number">Number:</label>
     <input type="number" id="number" name="number" readonly>
-
-    <label>Status:</label>
-    <div>
-      <label for="healthy">Healthy</label>
-      <input type="radio" id="healthy" name="status" value="healthy" disabled>
-      <label for="injured">Injured</label>
-      <input type="radio" id="injured" name="status" value="injured" disabled>
-    </div>
 
     <label for="position">Position:</label>
     <select id="position" name="position" disabled>
@@ -45,16 +37,33 @@
       <option value="DEF">DEF</option>
     </select>
 
-    <div>
-      <button type="button" onclick="fetchPreviousItem()">Previous</button>
-      <button type="button" onclick="fetchNextItem()">Next</button>
-      <button type="button" onclick="toggleEdit()">Edit</button>
-      <button type="button" onclick="saveRecord()">Save</button>
-      <button type="button" onclick="deleteItem()">Delete</button>
-      <button type="button" onclick="insertItem()">Add Empty</button>
+    <label>Status:</label>
+    <div id ="status">
+      <label for="healthy">Healthy</label>
+      <input type="radio" id="healthy" name="status" value="healthy" disabled>
+      <label for="injured">Injured</label>
+      <input type="radio" id="injured" name="status" value="injured" disabled>
+    </div>
+
+    </div>
+    <div id= "buttonContainer">
+      <button id ="nav" type="button" onclick="fetchFirstItem()">First</button>
+      <button id ="nav" type="button" onclick="fetchPreviousItem()">Previous</button>
+      <button id ="nav" type="button" onclick="fetchNextItem()">Next</button>
+      <button id ="nav" type="button" onclick="fetchLastItem()">Last</button>
+    </div>
+
+    <div id= "buttonContainer">
+      <button id ="btn" type="button" onclick="">Upload Image</button>
+      <button id ="btn" type="button" onclick="insertItem()">Add Empty</button>
+      <button id ="btn" type="button" onclick="toggleEdit()">Edit</button>
+      <button id ="btn" type="button" onclick="saveRecord()">Save</button>
+      <button id ="btn" type="button" onclick="toggleSort()">Sort</button>
+      <button id ="btn" type="button" onclick="deleteItem()">Delete</button>
     </div>
 
     <p id="item-position"></p>
+    
   </form>
 
 </body>

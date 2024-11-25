@@ -1,5 +1,7 @@
 let currentIndex = 1;
 let size = 2;
+let currentPlayer = null;
+let sortMode = 0;
 
 function displayItem(item) 
 {  
@@ -34,12 +36,13 @@ function fetchItem()
       if (!response.error) 
       {
         displayItem(response.player);
+        currentPlayer = response.player;
         document.getElementById("item-position").textContent = `${currentIndex} / ${response.total_entries}`;
         size = response.total_entries;
       } 
       else 
       {
-        alert("Player not found at index " + currentIndex);
+        console.log("Player not found at index " + currentIndex);
       }
     } 
     else 
@@ -59,6 +62,15 @@ function fetchPreviousItem()
   }
 }
 
+function fetchFirstItem()
+{
+  if (currentIndex > 0) 
+  {
+    currentIndex = 1;
+    fetchItem();
+  }
+}
+
 function fetchNextItem() 
 {
   if (currentIndex < size) 
@@ -67,6 +79,16 @@ function fetchNextItem()
     fetchItem();
   }
 }
+
+function fetchLastItem()
+{
+  if (currentIndex > 0) 
+  {
+    currentIndex = size;
+    fetchItem();
+  }
+}
+
 // Load the initial item on page load
 document.addEventListener("DOMContentLoaded", () => 
 { 
@@ -86,8 +108,6 @@ function insertItem()
       const response = JSON.parse(request.responseText);
       if (!response.error) 
       {
-        size++;
-        currentIndex = size;
         fetchItem(size);
       } 
       else 
@@ -97,4 +117,111 @@ function insertItem()
     }
   };
   request.send();
+
+  size++;
+  currentIndex = size;
+}
+
+function saveRecord() 
+{
+  const request = new XMLHttpRequest();
+  request.open("POST", "saveItem.php", true);
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  const id = currentPlayer['id'];
+  const name = document.getElementById("name").value;
+  const team = document.getElementById("team").value;
+  const number = document.getElementById("number").value;
+  const status = document.querySelector('input[name="status"]:checked').value;
+  const position = document.getElementById("position").value;
+
+  request.send(`id=${id}&player_name=${name}&player_team=${team}&player_number=${number}&player_status=${status}&player_position=${position}`);
+}
+
+function deleteItem() 
+{
+  const request = new XMLHttpRequest();
+  request.open("POST", "deleteItem.php", true);
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  const id = parseInt(currentPlayer['id']);
+
+  request.onreadystatechange = function () 
+  {
+    if (request.readyState === 4 && request.status === 200) 
+    {
+      const response = JSON.parse(request.responseText);
+      if (response.success) 
+      {
+        if (size > 1) 
+        { 
+          // More than one item
+          if (currentIndex >= 2) 
+          {
+            currentIndex--;
+            size--;
+            fetchItem(currentIndex);
+          } 
+          else // Delete item 1 but size > 1
+          {
+            size--;
+            fetchItem(currentIndex);
+          }
+        } 
+        else 
+        { 
+          // Only one item
+          size = 0;
+          currentIndex = 0;
+          insertItem();
+
+          setTimeout(() => 
+          {
+            fetchItem(currentIndex);
+          }, 3000);
+        }
+      } 
+      else 
+      {
+        console.error("Failed to delete item:", response.error || "Unknown error");
+      }
+    }
+  };
+
+  request.send(`id=${id}`);
+
+}
+
+function toggleSort() 
+{
+  const request = new XMLHttpRequest();
+  request.open("POST", "sortItems.php", true);
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  if(sortMode == 0)
+  {
+    sortMode = 1;
+  }
+  else 
+  {
+    sortMode = 0;
+  }
+
+  request.onreadystatechange = function () 
+  {
+    if (request.readyState === 4 && request.status === 200) 
+    {
+      const response = JSON.parse(request.responseText);
+      if (response.success) 
+      {
+        fetchItem(currentIndex);
+      } 
+      else 
+      {
+        console.error("Failed to sort items:", response.error || "Unknown error");
+      }
+    }
+  };
+
+  request.send(`sortMode=${sortMode}`);
 }
