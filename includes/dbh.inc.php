@@ -24,7 +24,8 @@ try
         player_team VARCHAR(100),
         player_number INT,
         player_status ENUM('healthy', 'injured') DEFAULT 'healthy',
-        player_position ENUM('QB', 'RB', 'WR', 'TE', 'K', 'DEF') DEFAULT 'QB'
+        player_position ENUM('QB', 'RB', 'WR', 'TE', 'K', 'DEF') DEFAULT 'QB',
+        image_path VARCHAR(255)
     )";
     $pdo->exec($createPlayersTable);
 

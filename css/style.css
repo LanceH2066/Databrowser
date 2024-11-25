@@ -44,7 +44,17 @@ select
     width: 100%;
     height: 100%;
     margin: 0 auto;
-    gap: 3.3%; /* Space between inputs */
+    gap: 2%; /* Space between inputs */
+}
+#uploadForm
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
 }
 #status
 {
@@ -77,4 +87,26 @@ select
     color: white;
     font-weight: bold;
     font-size: clamp(1rem, 1vw, 4rem); /* Scales font size */
+}
+#uploadBtn
+{
+    width: 7vw;
+    height: 4vh;
+    background-color:crimson;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(1rem, 0.75vw, 4rem); /* Scales font size */
+}
+#playerImagePreview
+{
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    height: 25vh;
+    width: auto;
+}
+input:read-only
+{
+    background-color: lightgrey;
+    border: none;
 }

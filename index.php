@@ -9,14 +9,16 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Data Browser - Edit Items</title>
-  <link href="style.css" rel="stylesheet">
-  <script src="app.js" defer></script>
+  <title>Data Browser</title>
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/app.js" defer></script>
 </head>
 
 <body>
-  <form id="item-form">
-     <h1>Fantasy Football Manager</h1>
+  <form id="item-form" enctype="multipart/form-data">
+    <h1>Fantasy Football Manager</h1>
+
+    <img id="playerImagePreview" src="" alt="Player Image">
 
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" readonly>
@@ -37,6 +39,10 @@
       <option value="DEF">DEF</option>
     </select>
 
+    <label for="playerImage">Upload Player Image:</label>
+    <input type="file" id="playerImage" name="playerImage" accept="image/*" disabled>
+    <button id ="uploadBtn" type="button" onclick="uploadImage()" disabled>Upload Image</button>
+
     <label>Status:</label>
     <div id ="status">
       <label for="healthy">Healthy</label>
@@ -54,7 +60,6 @@
     </div>
 
     <div id= "buttonContainer">
-      <button id ="btn" type="button" onclick="">Upload Image</button>
       <button id ="btn" type="button" onclick="insertItem()">Add Empty</button>
       <button id ="btn" type="button" onclick="toggleEdit()">Edit</button>
       <button id ="btn" type="button" onclick="saveRecord()">Save</button>

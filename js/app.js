@@ -11,6 +11,16 @@ function displayItem(item)
   document.getElementById("healthy").checked = item.player_status === "healthy";
   document.getElementById("injured").checked = item.player_status === "injured";
   document.getElementById("position").value = item.player_position || "";
+
+  const playerImage = document.getElementById("playerImagePreview");
+  if (item.image_path)
+  { 
+    playerImage.src = item.image_path;
+  } 
+  else 
+  {
+    playerImage.src = "";
+  }
 }
 
 function toggleEdit() 
@@ -21,6 +31,8 @@ function toggleEdit()
   document.getElementById("healthy").toggleAttribute("disabled");
   document.getElementById("injured").toggleAttribute("disabled");
   document.getElementById("position").toggleAttribute("disabled");
+  document.getElementById("playerImage").toggleAttribute("disabled");
+  document.getElementById("uploadBtn").toggleAttribute("disabled");
 }
 
 function fetchItem()
@@ -224,4 +236,40 @@ function toggleSort()
   };
 
   request.send(`sortMode=${sortMode}`);
+}
+
+function uploadImage() 
+{
+  const request = new XMLHttpRequest();
+  const formData = new FormData();
+  const fileInput = document.getElementById("playerImage");
+
+  // Attach the file
+  formData.append("playerImage", fileInput.files[0]);
+  // Attach the player ID and any other fields
+  formData.append("id", currentPlayer['id']);
+
+  request.open('POST', 'uploadImage.php', true);
+
+  request.onload = function () 
+  {
+    if (request.status === 200) 
+    {
+      const response = JSON.parse(request.responseText);
+      if (!response.error) 
+      {
+        document.getElementById('playerImagePreview').src = response.imagePath;
+      } 
+      else 
+      {
+        alert(`Error: ${response.error}`);
+      }
+    } 
+    else 
+    {
+      console.error('Request failed with status:', request.status);
+    }
+  };
+
+  request.send(formData);
 }
