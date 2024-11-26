@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         // Check if a file was uploaded
         if (!isset($_FILES['playerImage']) || $_FILES['playerImage']['error'] !== UPLOAD_ERR_OK) 
         {
-            echo json_encode(['error' => 'File upload error.']);
+            echo json_encode(['error' => 'No File Chosen']);
             exit();
         }
 

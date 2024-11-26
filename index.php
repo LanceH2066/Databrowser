@@ -1,7 +1,7 @@
 <?php
-  require_once 'includes/dbh.inc.php';
-  require_once 'includes/config_session.inc.php';
-  require_once 'includes/import_json_data.inc.php';
+  require_once 'includes/dbh.inc.php';              // HANDLES DATABASE CREATION, CONNECTION, AND CREATION OF TABLES
+  require_once 'includes/config_session.inc.php';     // HANDLES SESSION CREATION AND REGENERATION
+  require_once 'includes/import_json_data.inc.php';     // IMPORTS JSON DATA FOR TESTING ON 20 ITEMS
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +41,6 @@
 
     <label for="playerImage">Upload Player Image:</label>
     <input type="file" id="playerImage" name="playerImage" accept="image/*" disabled>
-    <button id ="uploadBtn" type="button" onclick="uploadImage()" disabled>Upload Image</button>
 
     <label>Status:</label>
     <div id ="status">

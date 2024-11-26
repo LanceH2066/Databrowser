@@ -5,140 +5,160 @@
             "player_team": "Kansas City Chiefs",
             "player_number": 15,
             "player_status": "healthy",
-            "player_position": "QB"
+            "player_position": "QB",
+            "image_path": "uploads/img_6744f2fddccde4.73142125.jpg"
         },
         {
             "player_name": "Derrick Henry",
             "player_team": "Tennessee Titans",
             "player_number": 22,
             "player_status": "healthy",
-            "player_position": "RB"
+            "player_position": "RB",
+            "image_path": "uploads/img_6744dab1cceaa2.04969424.jpg"
         },
         {
             "player_name": "Davante Adams",
             "player_team": "Las Vegas Raiders",
             "player_number": 17,
             "player_status": "healthy",
-            "player_position": "WR"
+            "player_position": "WR",
+            "image_path": "uploads/img_6744db69e008d0.37244078.PNG"
         },
         {
             "player_name": "Travis Kelce",
             "player_team": "Kansas City Chiefs",
             "player_number": 87,
             "player_status": "healthy",
-            "player_position": "TE"
+            "player_position": "TE",
+            "image_path": "uploads/img_6744dc670a7178.88526820.jpg"
         },
         {
             "player_name": "Justin Tucker",
             "player_team": "Baltimore Ravens",
             "player_number": 9,
             "player_status": "healthy",
-            "player_position": "K"
+            "player_position": "K",
+            "image_path": "uploads/img_6744dcdfce03e5.37631155.jpg"
         },
         {
             "player_name": "Aaron Donald",
             "player_team": "Los Angeles Rams",
             "player_number": 99,
             "player_status": "healthy",
-            "player_position": "DEF"
+            "player_position": "DEF",
+            "image_path": "uploads/img_6744dd4c02ec61.30043409.jpeg"
         },
         {
             "player_name": "Josh Allen",
             "player_team": "Buffalo Bills",
             "player_number": 17,
             "player_status": "healthy",
-            "player_position": "QB"
+            "player_position": "QB",
+            "image_path": "uploads/img_6744ddf29b8d29.64999894.jpg"
         },
         {
             "player_name": "Saquon Barkley",
             "player_team": "New York Giants",
             "player_number": 26,
             "player_status": "healthy",
-            "player_position": "RB"
+            "player_position": "RB",
+            "image_path": "uploads/img_6744de609f92b3.41574410.jpg"
         },
         {
             "player_name": "Tyreek Hill",
             "player_team": "Miami Dolphins",
             "player_number": 10,
             "player_status": "healthy",
-            "player_position": "WR"
+            "player_position": "WR",
+            "image_path": "uploads/img_6744f0979f02c1.84367820.jpg"
         },
         {
             "player_name": "George Kittle",
             "player_team": "San Francisco 49ers",
             "player_number": 85,
             "player_status": "healthy",
-            "player_position": "TE"
+            "player_position": "TE",
+            "image_path": "uploads/img_6744f0ef71cee6.38591638.jpg"
         },
         {
             "player_name": "Harrison Butker",
             "player_team": "Kansas City Chiefs",
             "player_number": 7,
             "player_status": "healthy",
-            "player_position": "K"
+            "player_position": "K",
+            "image_path": "uploads/img_6744f1158320c6.97556095.jpg"
         },
         {
             "player_name": "Micah Parsons",
             "player_team": "Dallas Cowboys",
             "player_number": 11,
             "player_status": "healthy",
-            "player_position": "DEF"
+            "player_position": "DEF",
+            "image_path": "uploads/img_6744f12b121244.45580300.jpg"
         },
         {
             "player_name": "Joe Burrow",
             "player_team": "Cincinnati Bengals",
             "player_number": 9,
             "player_status": "healthy",
-            "player_position": "QB"
+            "player_position": "QB",
+            "image_path": "uploads/img_6744f17e4991d9.38932095.jpg"
         },
         {
             "player_name": "Nick Chubb",
             "player_team": "Cleveland Browns",
             "player_number": 24,
             "player_status": "healthy",
-            "player_position": "RB"
+            "player_position": "RB",
+            "image_path": "uploads/img_6744f1b557b0a6.86411188.jpg"
         },
         {
             "player_name": "Cooper Kupp",
             "player_team": "Los Angeles Rams",
             "player_number": 10,
             "player_status": "healthy",
-            "player_position": "WR"
+            "player_position": "WR",
+            "image_path": "uploads/img_6744f1dbb7d9f0.81825084.jpg"
         },
         {
             "player_name": "Mark Andrews",
             "player_team": "Baltimore Ravens",
             "player_number": 89,
             "player_status": "healthy",
-            "player_position": "TE"
+            "player_position": "TE",
+            "image_path": "uploads/img_6744f242183199.04727250.jpg"
         },
         {
             "player_name": "Matt Gay",
             "player_team": "Indianapolis Colts",
             "player_number": 8,
             "player_status": "healthy",
-            "player_position": "K"
+            "player_position": "K",
+            "image_path": "uploads/img_6744f257d1c3b8.90565210.jpg"
         },
         {
             "player_name": "T.J. Watt",
             "player_team": "Pittsburgh Steelers",
             "player_number": 90,
             "player_status": "healthy",
-            "player_position": "DEF"
+            "player_position": "DEF",
+            "image_path": "uploads/img_6744f26b622186.81630666.jpg"
         },
         {
             "player_name": "Jalen Hurts",
             "player_team": "Philadelphia Eagles",
             "player_number": 1,
             "player_status": "healthy",
-            "player_position": "QB"
+            "player_position": "QB",
+            "image_path": "uploads/img_6744f27b7f9851.10027391.jpg"
         },
         {
             "player_name": "Christian McCaffrey",
             "player_team": "San Francisco 49ers",
             "player_number": 23,
             "player_status": "healthy",
-            "player_position": "RB"
+            "player_position": "RB",
+            "image_path": "uploads/img_6744f2b39d9214.95504851.jpg"
         }
     ]
 }

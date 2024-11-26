@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         require_once 'includes/dbh.inc.php';
         require_once 'includes/config_session.inc.php';
 
-        $sortMode = (int) $_POST['sortMode'];
+        $sortMode = (int) $_POST['sortMode'];   // get sortmode input
         $_SESSION['sortMode'] = $sortMode; // Store sortMode in session
 
         echo json_encode(['success' => true, 'message' => 'Sorted successfully']);

@@ -14,9 +14,10 @@ try
     // Create the database if it doesn't exist
     $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbname");
 
-    // Connect to the MinesweeperDB
+    // Connect to the database
     $pdo->exec("USE $dbname");
 
+    // create query
     $createPlayersTable = "
     CREATE TABLE IF NOT EXISTS players (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,9 +28,11 @@ try
         player_position ENUM('QB', 'RB', 'WR', 'TE', 'K', 'DEF') DEFAULT 'QB',
         image_path VARCHAR(255)
     )";
+    // create table
     $pdo->exec($createPlayersTable);
 
-} catch (PDOException $e) 
+} 
+catch (PDOException $e) 
 {
     echo "Connection or operation failed: " . $e->getMessage();
 }

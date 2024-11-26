@@ -1,9 +1,9 @@
-let currentIndex = 1;
-let size = 2;
-let currentPlayer = null;
-let sortMode = 0;
+let currentIndex = 1;         // keep track of current row     
+let size = 2;                 // keep track of size, updated every fetch
+let currentPlayer = null;     // keep track of the current player
+let sortMode = 0;             // keep track of the sorting mode
 
-function displayItem(item) 
+function displayItem(item)  // Function to display the current player/item
 {  
   document.getElementById("name").value = item.player_name || "";
   document.getElementById("team").value = item.player_team || "";
@@ -13,17 +13,18 @@ function displayItem(item)
   document.getElementById("position").value = item.player_position || "";
 
   const playerImage = document.getElementById("playerImagePreview");
+  document.getElementById("playerImage").value = null;
   if (item.image_path)
   { 
     playerImage.src = item.image_path;
   } 
   else 
   {
-    playerImage.src = "";
+    playerImage.src = "images/placeholder.png";
   }
 }
 
-function toggleEdit() 
+function toggleEdit()   // Function to enable edit mode
 {
   document.getElementById("name").toggleAttribute("readonly");
   document.getElementById("team").toggleAttribute("readonly");
@@ -35,7 +36,7 @@ function toggleEdit()
   document.getElementById("uploadBtn").toggleAttribute("disabled");
 }
 
-function fetchItem()
+function fetchItem()  // function to retrive item at current index / row
 {
   const request = new XMLHttpRequest();
   request.open("GET", `fetchItem.php?index=${currentIndex}`, true);
@@ -65,7 +66,7 @@ function fetchItem()
   request.send();
 }
 
-function fetchPreviousItem() 
+function fetchPreviousItem()  // fetch previous item
 {
   if (currentIndex > 1) 
   {
@@ -74,7 +75,7 @@ function fetchPreviousItem()
   }
 }
 
-function fetchFirstItem()
+function fetchFirstItem()  // fetch first item
 {
   if (currentIndex > 0) 
   {
@@ -83,7 +84,7 @@ function fetchFirstItem()
   }
 }
 
-function fetchNextItem() 
+function fetchNextItem()   // fetch next item
 {
   if (currentIndex < size) 
   {
@@ -92,7 +93,7 @@ function fetchNextItem()
   }
 }
 
-function fetchLastItem()
+function fetchLastItem()   // fetch last item
 {
   if (currentIndex > 0) 
   {
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () =>
   fetchItem(currentIndex);
 });
 
-function insertItem() 
+function insertItem()   // Function to insert blank item
 {
   const request = new XMLHttpRequest();
   request.open("POST", "insertItem.php", true);
@@ -134,12 +135,12 @@ function insertItem()
   currentIndex = size;
 }
 
-function saveRecord() 
+function saveRecord()       // Function to save all fields to database including image path, also displays image and stores it on server side /uploads folder
 {
   const request = new XMLHttpRequest();
-  request.open("POST", "saveItem.php", true);
-  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  const formData = new FormData();
 
+  // Gather player details
   const id = currentPlayer['id'];
   const name = document.getElementById("name").value;
   const team = document.getElementById("team").value;
@@ -147,10 +148,49 @@ function saveRecord()
   const status = document.querySelector('input[name="status"]:checked').value;
   const position = document.getElementById("position").value;
 
-  request.send(`id=${id}&player_name=${name}&player_team=${team}&player_number=${number}&player_status=${status}&player_position=${position}`);
+  // Attach player details to FormData
+  formData.append("id", id);
+  formData.append("player_name", name);
+  formData.append("player_team", team);
+  formData.append("player_number", number);
+  formData.append("player_status", status);
+  formData.append("player_position", position);
+
+  // Attach image file (if any)
+  const fileInput = document.getElementById("playerImage");
+  if (fileInput.files.length > 0) 
+  {
+    formData.append("playerImage", fileInput.files[0]);
+  }
+
+  // Send the data via POST
+  request.open("POST", "saveItem.php", true);
+
+  request.onload = function () 
+  {
+      if (request.status === 200) 
+        {
+          const response = JSON.parse(request.responseText);
+          if (response.success) 
+          {
+            document.getElementById('playerImagePreview').src = response.imagePath || "images/placeholder.png";
+            displayItem();
+          } 
+          else 
+          {
+            console.error("Error saving record:", response.error || "Unknown error");
+          }
+      } 
+      else 
+      {
+        console.error("Request failed with status:", request.status);
+      }
+  };
+
+  request.send(formData);
 }
 
-function deleteItem() 
+function deleteItem()       // function to delete item from database
 {
   const request = new XMLHttpRequest();
   request.open("POST", "deleteItem.php", true);
@@ -187,7 +227,7 @@ function deleteItem()
           currentIndex = 0;
           insertItem();
 
-          setTimeout(() => 
+          setTimeout(() => // prevent unfavorable interleaving where fetch executes before insert causing errors
           {
             fetchItem(currentIndex);
           }, 3000);
@@ -204,7 +244,7 @@ function deleteItem()
 
 }
 
-function toggleSort() 
+function toggleSort()     // function to sort, really just sets a session variable called sortMode that the fetch item uses to determine the order
 {
   const request = new XMLHttpRequest();
   request.open("POST", "sortItems.php", true);
@@ -236,40 +276,4 @@ function toggleSort()
   };
 
   request.send(`sortMode=${sortMode}`);
-}
-
-function uploadImage() 
-{
-  const request = new XMLHttpRequest();
-  const formData = new FormData();
-  const fileInput = document.getElementById("playerImage");
-
-  // Attach the file
-  formData.append("playerImage", fileInput.files[0]);
-  // Attach the player ID and any other fields
-  formData.append("id", currentPlayer['id']);
-
-  request.open('POST', 'uploadImage.php', true);
-
-  request.onload = function () 
-  {
-    if (request.status === 200) 
-    {
-      const response = JSON.parse(request.responseText);
-      if (!response.error) 
-      {
-        document.getElementById('playerImagePreview').src = response.imagePath;
-      } 
-      else 
-      {
-        alert(`Error: ${response.error}`);
-      }
-    } 
-    else 
-    {
-      console.error('Request failed with status:', request.status);
-    }
-  };
-
-  request.send(formData);
 }
