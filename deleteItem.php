@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 
+        // Delete player at selected id
         $query = "DELETE FROM players WHERE id = :id";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

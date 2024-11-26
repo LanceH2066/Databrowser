@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         require_once 'includes/dbh.inc.php';
 
-        // Insert an empty row with default or NULL values
+        // Insert an empty row with NULL values
         $query = "INSERT INTO players (player_name, player_team, player_number, player_status, player_position) 
                   VALUES (NULL, NULL, NULL, NULL, NULL)";
         $stmt = $pdo->prepare($query);

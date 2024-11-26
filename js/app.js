@@ -173,7 +173,6 @@ function saveRecord()       // Function to save all fields to database including
           const response = JSON.parse(request.responseText);
           if (response.success) 
           {
-            document.getElementById('playerImagePreview').src = response.imagePath || "images/placeholder.png";
             displayItem();
           } 
           else 

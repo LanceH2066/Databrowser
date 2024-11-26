@@ -19,6 +19,7 @@
     <h1>Fantasy Football Manager</h1>
 
     <img id="playerImagePreview" src="" alt="Player Image">
+    <img id="logo" src="images/logo.png" alt="NFL LOGO">
 
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" readonly>
