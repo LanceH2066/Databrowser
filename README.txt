@@ -7,7 +7,7 @@ The project is built with PHP, JavaScript, HTML, CSS, and a mysql database for s
 Installation and Setup
 
 Ensure XAMPP is installed.
-Place the project files in the server's root directory (htdocs).
+Extract the project files (Folder Name: Databrowser) into the server's root directory (htdocs).
 Ensure APACHE and MYSQL servers are running.
 
 Database Configuration:
